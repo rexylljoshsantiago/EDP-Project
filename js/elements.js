@@ -37,6 +37,7 @@ export const clearFiltersButton = document.getElementById('clear-filters-button'
 // Board message and New Suggestion button
 export const boardMessage = document.getElementById('board-message');
 export const newSuggestionButton = document.getElementById('new-suggestion-button');
+export const newSuggestionCard = document.getElementById('new-suggestion-card');
 
 // Suggestion form
 export const suggestionForm = document.getElementById('suggestion-form');

@@ -13,7 +13,7 @@ import {
   userNameText, userRoleBadge,
   boardTitle, boardMessage, suggestionList, officerOnlyItems, topThreeList,
   statTotal, statPending, statReview, statDone,
-  mySuggestionCount, myVoteCount
+  mySuggestionCount, myVoteCount, newSuggestionCard
 } from './elements.js';
 
 
@@ -91,7 +91,7 @@ function applyRoleView() {
   boardTitle.textContent = isOfficer ? 'Officer Dashboard' : 'Suggestions';
 
   // Officers review suggestions — they do not post them
-  newSuggestionButton.classList.toggle('hidden', isOfficer);
+  newSuggestionCard.classList.toggle('hidden', isOfficer);
 }
 
 

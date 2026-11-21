@@ -1,15 +1,9 @@
-/* =====================================================
-   auth.js - SIGN-IN AND LOG OUT
-   (It is not real security. It just remembers a name and role.)
-   ===================================================== */
-
 import { state, saveUser, clearUser, clearDraft } from './data.js';
 import { sanitize } from './utils.js';
 import { firstNameInput, lastNameInput, nameError } from './elements.js';
 import { clearFilterControls } from './filters.js';
 import { showApp, showSignIn } from './ui.js';
 
-// Runs when the user submits the sign-in form (event 2)
 export function handleSignIn(event) {
   event.preventDefault();   // stops the page from reloading
 
@@ -17,7 +11,6 @@ export function handleSignIn(event) {
   const lastName = sanitize(lastNameInput.value);
   const role = document.querySelector('input[name="role"]:checked').value;
 
-  // Letters-only pattern (also allows hyphens and apostrophes for names like O'Brien or Santos-Cruz)
   const lettersOnly = /^[a-zA-ZÀ-ÖØ-öø-ÿ'\-]+$/;
 
   // Validate first name
@@ -53,8 +46,8 @@ export function handleSignIn(event) {
     lastNameInput.focus();
     return;
   }
-  if (lastName.length < 5) {
-    nameError.textContent = 'Last name must be at least 5 characters.';
+  if (lastName.length < 2) {
+    nameError.textContent = 'Last name must be at least 2 characters.';
     lastNameInput.focus();
     return;
   }
