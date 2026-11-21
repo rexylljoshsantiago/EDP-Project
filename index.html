@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OrgVoice - Suggestion and Upvote Board</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =====================================================
+       SCREEN 1: SIGN-IN
+       Users type their name and choose a role.
+       ===================================================== -->
+  <section id="signin-screen" class="signin-screen">
+    <div class="signin-card">
+      <h1 class="logo">OrgVoice</h1>
+      <p class="tagline">Share ideas. Vote on what matters.</p>
+
+      <form id="signin-form">
+        <label for="first-name-input">First name</label>
+        <input type="text" id="first-name-input">
+
+        <label for="last-name-input">Last name</label>
+        <input type="text" id="last-name-input">
+
+        <!-- JavaScript will write the error message here -->
+        <p id="name-error" class="error-message"></p>
+
+        <p class="label">Role:</p>
+        <div class="radio-group">
+          <label><input type="radio" name="role" value="Member" checked> Member</label>
+          <label><input type="radio" name="role" value="Officer"> Officer</label>
+        </div>
+
+        <button type="submit" class="button button-primary button-full">Sign In</button>
+      </form>
+
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       APP SCREEN
+       Shown after the user signs in.
+       It has a header, the board, and the suggestion form.
+       ===================================================== -->
+  <div id="app-screen" class="hidden">
+
+    <!-- Header: logo, user info, and Log Out button -->
+    <header class="app-header">
+      <h1 class="logo-small">OrgVoice</h1>
+      <div class="user-info">
+        <span id="user-name">Signed in as ...</span>
+        <span id="user-role" class="badge badge-dark">Member</span>
+        <button type="button" id="logout-button" class="button button-small">Log Out</button>
+      </div>
+    </header>
+
+
+    <!-- =====================================================
+         SCREEN 2 and 4: THE BOARD
+         Members and officers both see this page.
+         Items marked "officer-only" are for officers.
+         ===================================================== -->
+    <main id="board-view" class="page-layout">
+
+      <!-- Left side: the list of suggestions -->
+      <div class="main-column">
+        <h2 id="board-title">Suggestions</h2>
+        <p class="subtitle">The most upvoted suggestions appear first.</p>
+
+        <!-- Success message (for example, after posting). JavaScript shows it for a few seconds. -->
+        <p id="board-message" class="board-message hidden" aria-live="polite"></p>
+
+        <!-- Officer only: summary numbers -->
+        <div id="officer-stats" class="stats-row officer-only">
+          <div class="stat-box">
+            <span id="stat-total" class="stat-number">0</span>
+            <span class="stat-label">Total</span>
+          </div>
+          <div class="stat-box">
+            <span id="stat-pending" class="stat-number">0</span>
+            <span class="stat-label">Pending</span>
+          </div>
+          <div class="stat-box">
+            <span id="stat-review" class="stat-number">0</span>
+            <span class="stat-label">Under Review</span>
+          </div>
+          <div class="stat-box">
+            <span id="stat-done" class="stat-number">0</span>
+            <span class="stat-label">Approved / Implemented</span>
+          </div>
+        </div>
+
+        <!-- Toolbar: search, filters, and sort -->
+        <div class="toolbar">
+          <input type="text" id="search-input" placeholder="Search suggestions...">
+
+          <select id="category-filter">
+            <option value="">All categories</option>
+            <option value="Events">Events</option>
+            <option value="Programs">Programs</option>
+            <option value="Policies">Policies</option>
+            <option value="Improvements">Improvements</option>
+          </select>
+
+          <select id="status-filter">
+            <option value="">All statuses</option>
+            <option value="Pending">Pending</option>
+            <option value="Under Review">Under Review</option>
+            <option value="Approved">Approved</option>
+            <option value="Implemented">Implemented</option>
+          </select>
+
+          <select id="sort-select">
+            <option value="votes">Most votes</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+          </select>
+
+          <button type="button" id="clear-filters-button" class="button button-small">Clear Filters</button>
+        </div>
+
+        <!-- The list of suggestion cards (created by JavaScript) -->
+        <div id="suggestion-list">
+          <!-- JavaScript creates the suggestion cards here -->
+        </div>
+      </div>
+
+      <!-- Right side: extra boxes -->
+      <aside class="side-column">
+        <div class="side-card">
+          <h3>Have an idea?</h3>
+          <p>Post a suggestion for an event, program, policy, or improvement.</p>
+          <button type="button" id="new-suggestion-button" class="button button-primary button-full">+ New Suggestion</button>
+        </div>
+
+        <div class="side-card">
+          <h3>Your activity</h3>
+          <p>Suggestions posted: <span id="my-suggestion-count">0</span></p>
+          <p>Upvotes given: <span id="my-vote-count">0</span></p>
+        </div>
+
+        <!-- Officer only: the three most upvoted suggestions -->
+        <div class="side-card officer-only">
+          <h3>Top 3 by votes</h3>
+          <ol id="top-three-list" class="top-three"></ol>
+        </div>
+
+        <!-- Officer only: what each status means -->
+        <div class="side-card officer-only">
+          <h3>Status guide</h3>
+          <p><strong>Pending:</strong> not yet reviewed</p>
+          <p><strong>Under Review:</strong> officers are discussing it</p>
+          <p><strong>Approved:</strong> will be done</p>
+          <p><strong>Implemented:</strong> completed</p>
+        </div>
+      </aside>
+
+    </main>
+
+
+    <!-- =====================================================
+         SCREEN 3: SUBMIT / EDIT SUGGESTION FORM
+         ===================================================== -->
+    <section id="form-view" class="form-page hidden">
+      <div class="form-card">
+        <h2 id="form-title">Submit a Suggestion</h2>
+        <p class="subtitle">Share your idea with the organization. Required fields are marked with *.</p>
+
+        <!-- Shown when an unfinished draft was put back (see form.js) -->
+        <p id="draft-notice" class="draft-notice hidden">Your unfinished draft was restored.</p>
+
+        <form id="suggestion-form">
+
+          <label for="title-input">Title *</label>
+          <input type="text" id="title-input" placeholder="Short, clear title (5-80 characters)">
+          <p class="counter"><span id="title-counter">0</span> / 80</p>
+
+          <label for="category-input">Category *</label>
+          <select id="category-input">
+            <option value="">Select a category</option>
+            <option value="Events">Events</option>
+            <option value="Programs">Programs</option>
+            <option value="Policies">Policies</option>
+            <option value="Improvements">Improvements</option>
+          </select>
+
+          <label for="description-input">Description *</label>
+          <textarea id="description-input" rows="6" placeholder="Explain your idea and why it would help members (20-500 characters)"></textarea>
+          <p class="counter"><span id="description-counter">0</span> / 500</p>
+
+          <!-- JavaScript will write error or success messages here -->
+          <p id="form-message" class="error-message" aria-live="polite"></p>
+
+          <div class="form-buttons">
+            <button type="button" id="cancel-button" class="button">Cancel</button>
+            <button type="submit" id="submit-button" class="button button-primary">Submit Suggestion</button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+  </div>
+  <script type="module" src="js/main.js"></script>
+
+</body>
+</html>

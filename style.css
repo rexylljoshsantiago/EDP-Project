@@ -1,0 +1,558 @@
+/* =====================================================
+   OrgVoice - style.css
+   This file controls how the page looks.
+   ===================================================== */
+
+
+/* ---------- 1. COLORS (variables) ----------
+   We save our colors here once, then reuse them with var(--name).
+   To change a color everywhere, change it only here. */
+:root {
+  --ink: #1a1a1a;       /* dark text and dark buttons */
+  --muted: #737373;     /* gray text */
+  --line: #bfbfbf;      /* borders */
+  --panel: #f2f2f2;     /* page background */
+  --white: #ffffff;     /* cards */
+  --light: #e0e0e0;     /* light badges */
+  --error: #bf2626;     /* error messages (red) */
+}
+
+
+/* ---------- 2. BASIC SETTINGS ---------- */
+
+/* Makes width and height include the padding and border.
+   This makes sizes easier to understand. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--panel);
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+/* JavaScript will add or remove this class to show or hide things.
+   !important makes sure it wins over other display rules (like display: flex). */
+.hidden {
+  display: none !important;
+}
+
+
+/* ---------- 3. BUTTONS ---------- */
+.button {
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid #666666;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #ececec;
+}
+
+/* Dark button (main action) */
+.button-primary {
+  color: var(--white);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.button-primary:hover {
+  background: #333333;
+}
+
+/* Shows a clear outline when a button is reached with the keyboard (Tab key) */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Smaller button */
+.button-small {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* Button that fills the whole width */
+.button-full {
+  width: 100%;
+}
+
+
+/* ---------- 4. FORM FIELDS ---------- */
+label,
+.label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Error messages are red. Success messages can use .success-message */
+.error-message {
+  min-height: 18px;          /* keeps the space even when empty */
+  margin: 6px 0 14px;
+  font-size: 12px;
+  color: var(--error);
+}
+
+.success-message {
+  color: #2e7d32;
+}
+
+/* Green message shown on the board after a successful action */
+.board-message {
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #1f5f25;
+  background: #e6f2e6;
+  border: 1px solid #b7d8b9;
+  border-radius: 6px;
+}
+
+/* Red version of the board message (used for errors) */
+.board-message.error {
+  color: #8a1c1c;
+  background: #fbeaea;
+  border-color: #e5b5b5;
+}
+
+/* Small note on the form when a draft was restored */
+.draft-notice {
+  padding: 8px 12px;
+  margin-bottom: 14px;
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+}
+
+/* The "0 / 80" character counters */
+.counter {
+  margin: 4px 0 16px;
+  font-size: 12px;
+  text-align: right;
+  color: var(--muted);
+}
+
+/* The counter turns red when the text is too long */
+.counter.over-limit {
+  color: var(--error);
+  font-weight: bold;
+}
+
+.small-note {
+  margin-top: 18px;
+  font-size: 12px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.subtitle {
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+
+/* ---------- 5. BADGES (small rounded tags) ---------- */
+.badge {
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: bold;
+  background: var(--light);
+  border-radius: 10px;
+}
+
+.badge-dark {
+  color: var(--white);
+  background: var(--ink);
+}
+
+
+/* ---------- 6. SIGN-IN SCREEN ---------- */
+.signin-screen {
+  display: flex;                 /* flexbox: lets us center the card */
+  align-items: center;           /* center up and down */
+  justify-content: center;       /* center left and right */
+  min-height: 100vh;             /* at least the full screen height */
+  padding: 20px;
+}
+
+.signin-card {
+  width: 420px;
+  max-width: 100%;
+  padding: 32px 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.logo {
+  font-size: 28px;
+  text-align: center;
+}
+
+.tagline {
+  margin: 8px 0 22px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.radio-group {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+/* Radio buttons sit next to their text */
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+
+/* ---------- 7. HEADER ---------- */
+.app-header {
+  display: flex;
+  justify-content: space-between;   /* logo on the left, user info on the right */
+  align-items: center;
+  padding: 14px 32px;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+
+.logo-small {
+  font-size: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+
+/* ---------- 8. BOARD PAGE LAYOUT ---------- */
+.page-layout {
+  display: flex;                    /* two columns side by side */
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 32px;
+}
+
+.main-column {
+  flex: 1;                          /* takes all the extra space */
+  min-width: 0;
+}
+
+.side-column {
+  width: 304px;
+}
+
+#board-title {
+  font-size: 22px;
+  margin-bottom: 2px;
+}
+
+.side-card {
+  padding: 16px;
+  margin-bottom: 16px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.side-card h3 {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.side-card p {
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+
+
+/* Top 3 list (officer sidebar) */
+.top-three {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.top-three li {
+  margin-bottom: 8px;
+}
+
+/* ---------- 9. OFFICER STATS ---------- */
+.stats-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.stat-box {
+  flex: 1;
+  padding: 12px 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.stat-number {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+
+/* ---------- 10. TOOLBAR (search, filters, sort) ---------- */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;                  /* moves items to the next line if too narrow */
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.toolbar input[type="text"] {
+  flex: 1;
+  min-width: 160px;
+  width: auto;
+}
+
+.toolbar select {
+  width: auto;
+}
+
+
+/* ---------- 11. SUGGESTION CARDS ---------- */
+.suggestion-card {
+  display: flex;                    /* vote box on the left, text on the right */
+  gap: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+/* The upvote button */
+.vote-box {
+  display: flex;
+  flex-direction: column;           /* stack the arrow, number, and "votes" */
+  align-items: center;
+  width: 56px;
+  height: fit-content;
+  padding: 10px 0;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* When the user has voted, the box turns dark */
+.vote-box:hover {
+  border-color: var(--ink);
+}
+
+.vote-box.voted {
+  color: var(--white);
+  background: var(--ink);
+}
+
+.vote-arrow {
+  font-size: 14px;
+}
+
+.vote-count {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.vote-label {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.vote-box.voted .vote-label {
+  color: #d9d9d9;
+}
+
+.card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-content h3 {
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.card-description {
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card-tags,
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Message shown when there are no suggestions */
+.empty-message {
+  padding: 24px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+/* "Status: [dropdown]" shown to officers */
+.status-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.status-control select {
+  width: auto;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.card-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+
+/* ---------- 12. SUBMIT / EDIT FORM PAGE ---------- */
+.form-page {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+}
+
+.form-card {
+  width: 640px;
+  max-width: 100%;
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.form-card h2 {
+  margin-bottom: 6px;
+  font-size: 22px;
+}
+
+/* Adds space under the category dropdown so the next label is not too close */
+.form-card select {
+  margin-bottom: 16px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;        /* buttons go to the right */
+  gap: 10px;
+}
+
+
+/* ---------- 13. SMALL SCREENS (phones) ---------- */
+@media (max-width: 800px) {
+  .page-layout {
+    flex-direction: column;         /* stack the columns */
+    padding: 16px;
+  }
+
+  .side-column {
+    width: 100%;
+  }
+
+  .stats-row {
+    flex-wrap: wrap;
+  }
+
+  .stat-box {
+    min-width: 120px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+}

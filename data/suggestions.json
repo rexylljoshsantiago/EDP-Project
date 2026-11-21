@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "title": "Organize a career talk series with IT professionals",
+    "description": "Invite alumni and industry speakers once a month so members can learn about internships and jobs.",
+    "category": "Events",
+    "status": "Under Review",
+    "author": "Ana Reyes",
+    "daysAgo": 2,
+    "voters": ["Ana Reyes", "Joel Cruz", "Lea Garcia", "Mark Tan", "Grace Lim", "Paolo Diaz"]
+  },
+  {
+    "id": 2,
+    "title": "Create a free tutoring program for first-year members",
+    "description": "Pair upperclassmen with first-years for weekly programming and math tutoring sessions.",
+    "category": "Programs",
+    "status": "Approved",
+    "author": "Joel Cruz",
+    "daysAgo": 4,
+    "voters": ["Ana Reyes", "Joel Cruz", "Lea Garcia", "Mark Tan", "Grace Lim"]
+  },
+  {
+    "id": 3,
+    "title": "Extend officer office hours to weekday evenings",
+    "description": "Members with late classes cannot reach officers during the current schedule.",
+    "category": "Policies",
+    "status": "Pending",
+    "author": "Maria Santos",
+    "daysAgo": 5,
+    "voters": ["Ana Reyes", "Joel Cruz", "Lea Garcia", "Mark Tan"]
+  },
+  {
+    "id": 4,
+    "title": "Add charging stations and more seats in the org room",
+    "description": "The room gets crowded during meetings and outlets are limited.",
+    "category": "Improvements",
+    "status": "Pending",
+    "author": "Lea Garcia",
+    "daysAgo": 8,
+    "voters": ["Ana Reyes", "Joel Cruz", "Lea Garcia"]
+  },
+  {
+    "id": 5,
+    "title": "Hold a monthly game night for all members",
+    "description": "A relaxed night of board games and video games to help members get to know each other.",
+    "category": "Events",
+    "status": "Implemented",
+    "author": "Mark Tan",
+    "daysAgo": 15,
+    "voters": ["Ana Reyes", "Joel Cruz"]
+  }
+]
