@@ -89,6 +89,9 @@ function applyRoleView() {
   });
 
   boardTitle.textContent = isOfficer ? 'Officer Dashboard' : 'Suggestions';
+
+  // Officers review suggestions — they do not post them
+  newSuggestionButton.classList.toggle('hidden', isOfficer);
 }
 
 

@@ -34,6 +34,11 @@ function resetForm() {
 
 // Runs when the user clicks "+ New Suggestion"
 export function openNewForm() {
+  // Officers are not allowed to post suggestions
+  if (state.currentUser.role === 'Officer') {
+    return;
+  }
+
   resetForm();
   formTitle.textContent = 'Submit a Suggestion';
   submitButton.textContent = 'Submit Suggestion';
@@ -218,6 +223,11 @@ function updateSuggestion(id, title, category, description) {
 // Runs when the user submits the form (new suggestion OR edited suggestion)
 export function handleFormSubmit(event) {
   event.preventDefault();   // stops the page from reloading
+
+  // Officers cannot post suggestions
+  if (state.currentUser.role === 'Officer') {
+    return;
+  }
 
   // Clean the text first (removes HTML tags and extra spaces)
   const title = sanitize(titleInput.value);
