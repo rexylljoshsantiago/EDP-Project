@@ -1,9 +1,3 @@
-/* =====================================================
-   form.js - THE SUGGESTION FORM
-   Opening the form, live character counters, checking
-   (validating) the input, and saving a new suggestion.
-   ===================================================== */
-
 import { state, saveData, saveDraft, loadDraft, clearDraft } from './data.js';
 import { sanitize } from './utils.js';
 import {
@@ -57,7 +51,6 @@ export function openNewForm() {
   titleInput.focus();   // the cursor is ready in the title box
 }
 
-// Runs when the user clicks Edit on one of their own suggestions (event 12)
 export function openEditForm(id) {
   const suggestion = state.suggestions.find(item => item.id === id);
 
@@ -81,9 +74,8 @@ export function openEditForm(id) {
   titleInput.focus();
 }
 
-// Runs when the user clicks Cancel
 export function handleCancel() {
-  clearDraft();   // Cancel means "I do not want this suggestion"
+  clearDraft();   
   resetForm();
   showBoard();
 }

@@ -1,13 +1,3 @@
-/* =====================================================
-   sync.js - LIVE SYNC BETWEEN TABS
-   When you change something in one browser tab, the other
-   tabs of OrgVoice update by themselves. No refresh needed.
-
-   How it works: when localStorage is changed in one tab,
-   the browser fires a "storage" event in the OTHER tabs
-   (not in the tab that made the change).
-   ===================================================== */
-
 import { state, loadData, STORAGE_KEY_SUGGESTIONS } from './data.js';
 import { refreshBoard, showBoardMessage } from './ui.js';
 import { handleCancel } from './form.js';

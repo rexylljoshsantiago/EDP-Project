@@ -1,10 +1,3 @@
-/* =====================================================
-   filters.js - SEARCH, FILTER, AND SORT
-   Works out WHICH suggestions to show, and in WHAT order.
-   It reads the toolbar controls, so search, filters,
-   and sort all work together.
-   ===================================================== */
-
 import { state, saveFilters, loadFilters, clearSavedFilters } from './data.js';
 import { searchInput, categoryFilter, statusFilter, sortSelect } from './elements.js';
 
@@ -29,9 +22,6 @@ export function getVisibleSuggestions() {
   return sortList(matches, sortSelect.value);
 }
 
-// Compares two suggestions: the one with MORE votes goes first.
-// If the votes are equal, the NEWER one goes first.
-// (sort() uses a function like this to decide the order)
 export function compareByVotes(a, b) {
   return (b.voters.length - a.voters.length) || (b.createdAt - a.createdAt);
 }

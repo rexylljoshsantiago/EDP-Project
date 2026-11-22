@@ -1,9 +1,3 @@
-/* =====================================================
-   main.js - THE CONTROLLER
-   This is the file the HTML loads. It imports the other
-   files, starts the app, and connects events to functions.
-   ===================================================== */
-
 import { state, loadData, loadUser } from './data.js';
 import {
   signinForm, studentIdInput, regStudentId, appScreen, suggestionList, logoutButton,

@@ -1,9 +1,3 @@
-/* =====================================================
-   elements.js - PAGE ELEMENTS
-   We find each element ONCE here and export it,
-   so other files can import it. (Faster and shorter code.)
-   ===================================================== */
-
 // Screens
 export const signinScreen = document.getElementById('signin-screen');
 export const appScreen = document.getElementById('app-screen');

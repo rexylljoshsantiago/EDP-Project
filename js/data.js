@@ -1,31 +1,16 @@
-// Where the sample suggestions are kept (a JSON file we load with fetch)
 const SAMPLE_DATA_URL = 'data/suggestions.json';
 
-// The four statuses a suggestion can have (officers can change them)
 export const STATUSES = ['Pending', 'Under Review', 'Approved', 'Implemented'];
 
-// Milliseconds in one day. We use it to work out "2 days ago".
 export const ONE_DAY = 24 * 60 * 60 * 1000;
 
-// Names used as keys in the browser storage (like labels on boxes)
 export const STORAGE_KEY_SUGGESTIONS = 'orgvoice_suggestions';   // localStorage
 export const STORAGE_KEY_USER = 'orgvoice_user';                 // localStorage
 export const STORAGE_KEY_ACCOUNTS = 'orgvoice_accounts';         // localStorage
 export const STORAGE_KEY_DRAFT = 'orgvoice_draft';               // sessionStorage
 export const STORAGE_KEY_FILTERS = 'orgvoice_filters';           // sessionStorage
 
-/* =====================================================
-   THE APP STATE
-   One object holds everything the app needs to remember.
-   (We use an object because a "const" variable cannot be reassigned,
-   but it CAN change the properties of an object. That is why we use an object.)
 
-    state.suggestions = the list (array) of all suggestions
-    state.currentUser = the signed-in user: { id: '24-1509-790', name: '...', role: '...' }
-    state.editingId   = the id of the suggestion being edited (null when posting a new one)
-    state.loading     = true while the data is still loading
-    state.loadError   = true if the sample data could not be loaded
-*/
 export const state = {
   suggestions: [],
   currentUser: null,
@@ -34,30 +19,11 @@ export const state = {
   loadError: false
 };
 
-/*
-  Each suggestion is an object that looks like this:
-  {
-    id: 1,
-    title: 'Some title',
-    description: 'Some description',
-    category: 'Events',
-    status: 'Pending',
-    author: 'Maria Santos',       (display name only)
-    authorId: '24-1509-790',      (student ID: used to check ownership)
-    createdAt: 1700000000000,   (the time it was posted)
-    voters: ['23-1000-100', '23-1037-111']   (student IDs of people who upvoted)
-  }
-  The number of votes is just voters.length.
-  Saving the student IDs (not only a number) lets us allow one vote per person.
-*/
-
 // Returns the list of sample suggestions, or null if something went wrong
 async function loadSampleData() {
   try {
     const response = await fetch(SAMPLE_DATA_URL);   // ask for the file
 
-    // A missing file (404) does NOT cause an error by itself,
-    // so we must check response.ok ourselves.
     if (!response.ok) {
       throw new Error(`The file could not be loaded (status ${response.status}).`);
     }
@@ -91,8 +57,6 @@ async function useSampleData() {
   const sample = await loadSampleData();
 
   if (sample === null) {
-    // It failed. We start with an empty list and tell the user.
-    // We do NOT save, so the next visit can try again.
     state.suggestions = [];
     state.loadError = true;
     return;
@@ -102,14 +66,6 @@ async function useSampleData() {
   state.loadError = false;
   saveData();
 }
-
-
-/* =====================================================
-   SAVING AND LOADING THE SUGGESTIONS (localStorage)
-   Storage can only keep text, so we use:
-   - JSON.stringify() to turn our data into text (saving)
-   - JSON.parse() to turn the text back into data (loading)
-   ===================================================== */
 
 // Saves all suggestions
 export function saveData() {
@@ -295,13 +251,6 @@ export function clearSavedFilters() {
   sessionStorage.removeItem(STORAGE_KEY_FILTERS);
 }
 
-
-/* =====================================================
-   REGISTERED ACCOUNTS (localStorage)
-   Each account: { studentId, firstName, lastName, password, role }
-   The full name (firstName + ' ' + lastName) is used
-   as the display name and author across the app.
-   ===================================================== */
 
 export function saveAccounts(accounts) {
   try {

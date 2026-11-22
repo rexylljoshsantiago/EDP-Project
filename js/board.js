@@ -1,9 +1,3 @@
-/* =====================================================
-   board.js - BOARD ACTIONS
-   What happens when the user upvotes, searches,
-   filters, or sorts on the board.
-   ===================================================== */
-
 import { state, saveData, STATUSES } from './data.js';
 import { clearFilterControls, saveFilterChoices } from './filters.js';
 import { refreshBoard, showBoardMessage } from './ui.js';
@@ -12,7 +6,6 @@ import { openEditForm } from './form.js';
 
 /* ---------- Upvoting (event 6) ---------- */
 
-// Adds the user's vote, or removes it if they already voted.
 // Because we save student IDs in the voters list, one person can only vote once.
 function toggleVote(id) {
   const suggestion = state.suggestions.find(item => item.id === id);
@@ -34,9 +27,6 @@ function toggleVote(id) {
 }
 
 /* ---------- Deleting (event 14) ---------- */
-
-// Asks "Are you sure?", then removes the suggestion.
-// The owner can delete their own. Officers can remove any suggestion.
 function deleteSuggestion(id) {
   const suggestion = state.suggestions.find(item => item.id === id);
   const isOfficer = state.currentUser.role === 'Officer';
@@ -135,12 +125,6 @@ export function handleListChange(event) {
   updateStatus(Number(card.dataset.id), select.value);
 }
 
-
-/* ---------- Search, filter, and sort (events 7 to 11) ----------
-   Each control has its own function so the code matches our event map.
-   They all call refreshBoard(), which reads EVERY control,
-   so search, filters, and sort work together.
-   They also save the choice, so a refresh does not lose it. */
 
 export function sortSuggestions() {       // event 7
   saveFilterChoices();   // remember the choice (sessionStorage)
