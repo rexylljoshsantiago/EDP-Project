@@ -13,18 +13,18 @@ import { openEditForm } from './form.js';
 /* ---------- Upvoting (event 6) ---------- */
 
 // Adds the user's vote, or removes it if they already voted.
-// Because we save NAMES in the voters list, one person can only vote once.
+// Because we save student IDs in the voters list, one person can only vote once.
 function toggleVote(id) {
   const suggestion = state.suggestions.find(item => item.id === id);
   if (!suggestion) {
     return;   // the suggestion was not found, so do nothing
   }
 
-  const myName = state.currentUser.name;
-  const position = suggestion.voters.indexOf(myName);   // -1 means "not found"
+  const myId = state.currentUser.id;
+  const position = suggestion.voters.indexOf(myId);   // -1 means "not found"
 
   if (position === -1) {
-    suggestion.voters.push(myName);        // add the vote
+    suggestion.voters.push(myId);        // add the vote
   } else {
     suggestion.voters.splice(position, 1); // remove the vote
   }
@@ -35,17 +35,23 @@ function toggleVote(id) {
 
 /* ---------- Deleting (event 14) ---------- */
 
-// Asks "Are you sure?", then removes the suggestion
+// Asks "Are you sure?", then removes the suggestion.
+// The owner can delete their own. Officers can remove any suggestion.
 function deleteSuggestion(id) {
   const suggestion = state.suggestions.find(item => item.id === id);
+  const isOfficer = state.currentUser.role === 'Officer';
+  const isOwner = suggestion && suggestion.authorId === state.currentUser.id;
 
-  // Safety check: only the owner can delete
-  if (!suggestion || suggestion.author !== state.currentUser.name) {
+  // Only the owner or an officer can delete
+  if (!suggestion || (!isOwner && !isOfficer)) {
     return;
   }
 
-  // confirm() shows OK / Cancel and returns true or false
-  const sure = confirm(`Delete "${suggestion.title}"? This cannot be undone.`);
+  const confirmMessage = isOfficer && !isOwner
+    ? `Remove "${suggestion.title}" posted by ${suggestion.author}? This cannot be undone.`
+    : `Delete "${suggestion.title}"? This cannot be undone.`;
+
+  const sure = confirm(confirmMessage);
   if (!sure) {
     return;
   }
@@ -54,7 +60,7 @@ function deleteSuggestion(id) {
   state.suggestions = state.suggestions.filter(item => item.id !== id);
   saveData();
   refreshBoard();
-  showBoardMessage('The suggestion was deleted.');
+  showBoardMessage(isOfficer && !isOwner ? 'The suggestion was removed.' : 'The suggestion was deleted.');
 }
 
 

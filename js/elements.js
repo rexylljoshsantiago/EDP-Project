@@ -12,9 +12,24 @@ export const formView = document.getElementById('form-view');
 
 // Sign-in form
 export const signinForm = document.getElementById('signin-form');
-export const firstNameInput = document.getElementById('first-name-input');
-export const lastNameInput = document.getElementById('last-name-input');
+export const studentIdInput = document.getElementById('student-id-input');
+export const passwordInput = document.getElementById('password-input');
 export const nameError = document.getElementById('name-error');
+
+// Auth tabs
+export const tabSignin = document.getElementById('tab-signin');
+export const tabRegister = document.getElementById('tab-register');
+export const signinPanel = document.getElementById('signin-panel');
+export const registerPanel = document.getElementById('register-panel');
+
+// Register form
+export const registerForm = document.getElementById('register-form');
+export const regStudentId = document.getElementById('reg-student-id');
+export const regFirstName = document.getElementById('reg-first-name');
+export const regLastName = document.getElementById('reg-last-name');
+export const regPassword = document.getElementById('reg-password');
+export const regConfirmPassword = document.getElementById('reg-confirm-password');
+export const registerError = document.getElementById('register-error');
 
 // Header
 export const userNameText = document.getElementById('user-name');

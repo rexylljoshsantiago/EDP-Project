@@ -10,34 +10,80 @@
 <body>
 
   <!-- =====================================================
-       SCREEN 1: SIGN-IN
-       Users type their name and choose a role.
+       SCREEN 1: SIGN-IN / REGISTER
        ===================================================== -->
   <section id="signin-screen" class="signin-screen">
-    <div class="signin-card">
-      <h1 class="logo">OrgVoice</h1>
-      <p class="tagline">Share ideas. Vote on what matters.</p>
 
-      <form id="signin-form">
-        <label for="first-name-input">First name</label>
-        <input type="text" id="first-name-input">
+    <!-- Left half: image with overlay text -->
+    <div class="signin-left">
+      <div class="signin-overlay">
+        <div class="signin-brand">
+          <img src="images/org-logo.jpg" alt="OrgVoice logo" class="signin-logo-img">
+          <span class="signin-brand-name">OrgVoice</span>
+        </div>
+        <h1 class="signin-headline">Your voice <span class="signin-highlight">matters.</span></h1>
+        <p class="signin-desc"><i>Your voice matters. Submit ideas, support what you believe in, and watch your organization grow one suggestion at a time.</i></p>
+      </div>
+    </div>
 
-        <label for="last-name-input">Last name</label>
-        <input type="text" id="last-name-input">
+    <!-- Right half: sign-in and register forms -->
+    <div class="signin-right">
+      <div class="signin-form-wrapper">
 
-        <!-- JavaScript will write the error message here -->
-        <p id="name-error" class="error-message"></p>
-
-        <p class="label">Role:</p>
-        <div class="radio-group">
-          <label><input type="radio" name="role" value="Member" checked> Member</label>
-          <label><input type="radio" name="role" value="Officer"> Officer</label>
+        <!-- Tab buttons -->
+        <div class="auth-tabs">
+          <button type="button" id="tab-signin" class="auth-tab auth-tab-active">Sign In</button>
+          <button type="button" id="tab-register" class="auth-tab">Register</button>
         </div>
 
-        <button type="submit" class="button button-primary button-full">Sign In</button>
-      </form>
+        <!-- SIGN IN FORM -->
+        <div id="signin-panel">
+          <form id="signin-form">
+            <label for="student-id-input">Student ID</label>
+            <input type="text" id="student-id-input" placeholder="Enter your id" inputmode="numeric" maxlength="11" autocomplete="username">
 
+            <label for="password-input">Password</label>
+            <input type="password" id="password-input" placeholder="Enter your password">
+
+            <p id="name-error" class="error-message"></p>
+
+            <button type="submit" class="button button-primary button-full">Sign In</button>
+          </form>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div id="register-panel" class="hidden">
+          <form id="register-form">
+            <label for="reg-student-id">Student ID</label>
+            <input type="text" id="reg-student-id" placeholder="e.g., 24-1509-790" inputmode="numeric" maxlength="11">
+
+            <label for="reg-first-name">First name</label>
+            <input type="text" id="reg-first-name">
+
+            <label for="reg-last-name">Last name</label>
+            <input type="text" id="reg-last-name">
+
+            <label for="reg-password">Password</label>
+            <input type="password" id="reg-password">
+
+            <label for="reg-confirm-password">Confirm password</label>
+            <input type="password" id="reg-confirm-password">
+
+            <p class="label">Role</p>
+            <div class="radio-group">
+              <label><input type="radio" name="reg-role" value="Member" checked> Member</label>
+              <label><input type="radio" name="reg-role" value="Officer"> Officer</label>
+            </div>
+
+            <p id="register-error" class="error-message"></p>
+
+            <button type="submit" class="button button-primary button-full">Create Account</button>
+          </form>
+        </div>
+
+      </div>
     </div>
+
   </section>
 
   <div id="app-screen" class="hidden">

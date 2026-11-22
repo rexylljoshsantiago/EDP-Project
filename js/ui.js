@@ -10,6 +10,7 @@ import { getVisibleSuggestions, clearFilterControls, compareByVotes } from './fi
 import {
   signinScreen, appScreen, boardView, formView,
   signinForm, nameError,
+  registerForm, registerError, signinPanel, registerPanel, tabSignin, tabRegister,
   userNameText, userRoleBadge,
   boardTitle, boardMessage, suggestionList, officerOnlyItems, topThreeList,
   statTotal, statPending, statReview, statDone,
@@ -24,6 +25,12 @@ export function showSignIn() {
   signinForm.reset();            // clears the name box
   clearFilterControls();         // clears search, filters, and sort
   nameError.textContent = '';    // clears old error messages
+  registerForm.reset();          // clears the register form
+  registerError.textContent = '';
+  signinPanel.classList.remove('hidden');     // always open on the Sign In tab
+  registerPanel.classList.add('hidden');
+  tabSignin.classList.add('auth-tab-active');
+  tabRegister.classList.remove('auth-tab-active');
   signinScreen.classList.remove('hidden');
   appScreen.classList.add('hidden');
 }
@@ -135,10 +142,10 @@ function renderSuggestions(list) {
 // Builds ONE card for ONE suggestion
 function createSuggestionCard(suggestion) {
   // Destructuring: take the values out of the object
-  const { id, title, description, category, status, author, createdAt, voters } = suggestion;
+  const { id, title, description, category, status, author, authorId, createdAt, voters } = suggestion;
 
-  const hasVoted = voters.includes(state.currentUser.name);
-  const isOwner = author === state.currentUser.name;
+  const hasVoted = voters.includes(state.currentUser.id);
+  const isOwner = authorId === state.currentUser.id;
 
   // The card itself. data-id remembers which suggestion this card is.
   const card = makeElement('div', 'suggestion-card');
@@ -178,13 +185,18 @@ function createSuggestionCard(suggestion) {
 
   const actions = makeElement('div', 'card-actions');
 
-  // Officers get a dropdown to change the status
+  // Officers get a dropdown to change the status and a Remove button
   if (state.currentUser.role === 'Officer') {
     actions.appendChild(createStatusControl(title, status));
+
+    const removeButton = makeElement('button', 'button button-small button-danger', 'Remove');
+    removeButton.type = 'button';
+    removeButton.dataset.action = 'delete';
+    actions.appendChild(removeButton);
   }
 
-  // The owner of the suggestion gets Edit and Delete buttons
-  if (isOwner) {
+  // The owner of the suggestion gets Edit and Delete buttons (Members only)
+  if (isOwner && state.currentUser.role !== 'Officer') {
     const editButton = makeElement('button', 'button button-small', 'Edit');
     editButton.type = 'button';
     editButton.dataset.action = 'edit';
@@ -260,7 +272,7 @@ function updateTopThree() {
 
 // Updates "Suggestions posted" and "Upvotes given"
 function updateActivity() {
-  const myName = state.currentUser.name;
-  mySuggestionCount.textContent = state.suggestions.filter(item => item.author === myName).length;
-  myVoteCount.textContent = state.suggestions.filter(item => item.voters.includes(myName)).length;
+  const myId = state.currentUser.id;
+  mySuggestionCount.textContent = state.suggestions.filter(item => item.authorId === myId).length;
+  myVoteCount.textContent = state.suggestions.filter(item => item.voters.includes(myId)).length;
 }

@@ -62,7 +62,7 @@ export function openEditForm(id) {
   const suggestion = state.suggestions.find(item => item.id === id);
 
   // Safety check: only the owner can edit
-  if (!suggestion || suggestion.author !== state.currentUser.name) {
+  if (!suggestion || suggestion.authorId !== state.currentUser.id) {
     return;
   }
 
@@ -194,6 +194,7 @@ function addSuggestion(title, category, description) {
     category,
     status: 'Pending',               // every new suggestion starts as Pending
     author: state.currentUser.name,
+    authorId: state.currentUser.id,
     createdAt: Date.now(),
     voters: []                       // nobody has voted yet
   };
@@ -209,7 +210,7 @@ function addSuggestion(title, category, description) {
 function updateSuggestion(id, title, category, description) {
   const suggestion = state.suggestions.find(item => item.id === id);
 
-  if (!suggestion || suggestion.author !== state.currentUser.name) {
+  if (!suggestion || suggestion.authorId !== state.currentUser.id) {
     return;
   }
 

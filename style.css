@@ -1,12 +1,4 @@
-/* =====================================================
-   OrgVoice - style.css
-   This file controls how the page looks.
-   ===================================================== */
-
-
-/* ---------- 1. COLORS (variables) ----------
-   We save our colors here once, then reuse them with var(--name).
-   To change a color everywhere, change it only here. */
+/* ---------- 1. COLORS (variables) ---------- */
 :root {
   --ink: #1a1a1a;       /* dark text and dark buttons */
   --muted: #737373;     /* gray text */
@@ -93,6 +85,18 @@ textarea:focus-visible {
   width: 100%;
 }
 
+/* Red destructive button (used for officer Remove) */
+.button-danger {
+  color: var(--white);
+  background: var(--error);
+  border-color: var(--error);
+}
+
+.button-danger:hover {
+  background: #a01f1f;
+  border-color: #a01f1f;
+}
+
 
 /* ---------- 4. FORM FIELDS ---------- */
 label,
@@ -104,6 +108,7 @@ label,
 }
 
 input[type="text"],
+input[type="password"],
 select,
 textarea {
   width: 100%;
@@ -208,31 +213,110 @@ textarea {
 
 /* ---------- 6. SIGN-IN SCREEN ---------- */
 .signin-screen {
-  display: flex;                 /* flexbox: lets us center the card */
-  align-items: center;           /* center up and down */
-  justify-content: center;       /* center left and right */
-  min-height: 100vh;             /* at least the full screen height */
-  padding: 20px;
+  display: flex;
+  min-height: 100vh;
 }
 
-.signin-card {
-  width: 420px;
-  max-width: 100%;
-  padding: 32px 28px;
+/* Left half — the image */
+.signin-left {
+  width: 50%;
+  background-image: url('images/signin-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* Dark overlay so the text is readable over the photo */
+.signin-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Text on top of the overlay */
+.signin-overlay {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  padding: 40px;
+  text-align: left;
+  color: #ffffff;
+}
+
+/* Logo + app name row at the top */
+.signin-brand {
+  position: absolute;
+  top: 32px;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.signin-logo-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.signin-brand-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Large headline */
+.signin-headline {
+  font-size: 52px;
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  max-width: 420px;
+}
+
+/* Highlighted word in the headline */
+.signin-highlight {
+  color: #60b4f0;
+}
+
+.signin-desc {
+  font-size: 16px;
+  opacity: 0.85;
+  max-width: 380px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+/* Right half — the form */
+.signin-right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  padding: 48px 40px;
 }
 
-.logo {
-  font-size: 28px;
-  text-align: center;
+.signin-form-wrapper {
+  width: 100%;
+  max-width: 380px;
 }
 
-.tagline {
-  margin: 8px 0 22px;
-  text-align: center;
+.signin-heading {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.signin-sub {
+  font-size: 13px;
   color: var(--muted);
+  margin-bottom: 24px;
 }
 
 .radio-group {
@@ -533,6 +617,20 @@ textarea {
 
 /* ---------- 13. SMALL SCREENS (phones) ---------- */
 @media (max-width: 800px) {
+  .signin-screen {
+    flex-direction: column;
+  }
+
+  .signin-left {
+    min-height: 220px;
+    flex: none;
+  }
+
+  .signin-right {
+    width: 100%;
+    padding: 32px 24px;
+  }
+
   .page-layout {
     flex-direction: column;         /* stack the columns */
     padding: 16px;
@@ -555,4 +653,40 @@ textarea {
     gap: 10px;
     padding: 14px 16px;
   }
+}
+
+/* ---------- AUTH TABS (Sign In / Register) ---------- */
+.auth-tabs {
+  display: flex;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--line);
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 10px 0;
+  margin-bottom: -2px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.auth-tab:hover {
+  color: var(--ink);
+}
+
+.auth-tab-active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+#signin-form input,
+#register-form input[type="text"],
+#register-form input[type="password"] {
+  margin-bottom: 14px;
 }

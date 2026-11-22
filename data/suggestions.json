@@ -6,8 +6,16 @@
     "category": "Events",
     "status": "Under Review",
     "author": "Ana Reyes",
+    "authorId": "23-1000-100",
     "daysAgo": 2,
-    "voters": ["Ana Reyes", "Joel Cruz", "Lea Garcia", "Mark Tan", "Grace Lim", "Paolo Diaz"]
+    "voters": [
+      "23-1000-100",
+      "23-1037-111",
+      "23-1074-122",
+      "23-1111-133",
+      "23-1148-144",
+      "23-1185-155"
+    ]
   },
   {
     "id": 2,
@@ -16,8 +24,15 @@
     "category": "Programs",
     "status": "Approved",
     "author": "Joel Cruz",
+    "authorId": "23-1037-111",
     "daysAgo": 4,
-    "voters": ["Ana Reyes", "Joel Cruz", "Lea Garcia", "Mark Tan", "Grace Lim"]
+    "voters": [
+      "23-1000-100",
+      "23-1037-111",
+      "23-1074-122",
+      "23-1111-133",
+      "23-1148-144"
+    ]
   },
   {
     "id": 3,
@@ -26,8 +41,14 @@
     "category": "Policies",
     "status": "Pending",
     "author": "Maria Santos",
+    "authorId": "23-1222-166",
     "daysAgo": 5,
-    "voters": ["Ana Reyes", "Joel Cruz", "Lea Garcia", "Mark Tan"]
+    "voters": [
+      "23-1000-100",
+      "23-1037-111",
+      "23-1074-122",
+      "23-1111-133"
+    ]
   },
   {
     "id": 4,
@@ -36,8 +57,13 @@
     "category": "Improvements",
     "status": "Pending",
     "author": "Lea Garcia",
+    "authorId": "23-1074-122",
     "daysAgo": 8,
-    "voters": ["Ana Reyes", "Joel Cruz", "Lea Garcia"]
+    "voters": [
+      "23-1000-100",
+      "23-1037-111",
+      "23-1074-122"
+    ]
   },
   {
     "id": 5,
@@ -46,7 +72,11 @@
     "category": "Events",
     "status": "Implemented",
     "author": "Mark Tan",
+    "authorId": "23-1111-133",
     "daysAgo": 15,
-    "voters": ["Ana Reyes", "Joel Cruz"]
+    "voters": [
+      "23-1000-100",
+      "23-1037-111"
+    ]
   }
 ]

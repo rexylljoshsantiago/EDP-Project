@@ -6,14 +6,15 @@
 
 import { state, loadData, loadUser } from './data.js';
 import {
-  signinForm, appScreen, suggestionList, logoutButton,
+  signinForm, studentIdInput, regStudentId, appScreen, suggestionList, logoutButton,
   searchInput, categoryFilter, statusFilter, sortSelect, clearFiltersButton,
-  newSuggestionButton, suggestionForm, titleInput, categoryInput, descriptionInput, cancelButton
+  newSuggestionButton, suggestionForm, titleInput, categoryInput, descriptionInput, cancelButton,
+  tabSignin, tabRegister, registerForm
 } from './elements.js';
 import { showSignIn, showApp, refreshBoard, showLoadErrorIfNeeded } from './ui.js';
 import { restoreFilterChoices } from './filters.js';
 import { handleStorageChange } from './sync.js';
-import { handleSignIn, handleLogout } from './auth.js';
+import { handleSignIn, handleLogout, handleRegister, handleTabSignin, handleTabRegister, formatStudentIdInput } from './auth.js';
 import {
   handleListClick, handleListChange, sortSuggestions, searchSuggestions,
   filterByCategory, filterByStatus, resetFilters
@@ -23,6 +24,11 @@ import { openNewForm, handleCancel, updateCharCounter, saveDraftFromForm, handle
 // Connect events to functions
 function setupEventListeners() {
   signinForm.addEventListener('submit', handleSignIn);
+  registerForm.addEventListener('submit', handleRegister);
+  studentIdInput.addEventListener('input', formatStudentIdInput);
+  regStudentId.addEventListener('input', formatStudentIdInput);
+  tabSignin.addEventListener('click', handleTabSignin);
+  tabRegister.addEventListener('click', handleTabRegister);
   logoutButton.addEventListener('click', handleLogout);
 
   // Board: ONE listener on the list handles all card buttons (event delegation)
